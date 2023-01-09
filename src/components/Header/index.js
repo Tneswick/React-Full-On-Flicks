@@ -15,18 +15,12 @@ function Header() {
     
     return (
         <div className="header-wrapper">
-            <a className="header-link" href="#">
-                <h1 className="header-text">
+            <h1 className="header-text">
                 🎞️🍿Full On Flicks🎬🎥
-                </h1>
-            </a>
+            </h1>
             <form onSubmit={handleSubmit}>
-                <input type="text" className="search" value={inputText} onChange={handleChange}>
-                    Search for Movies or TV Shows
-                </input>
-                <input type="submit" className="search-btn">
-                    SEARCH
-                </input>
+                <input type="text" className="search" value={inputText} onChange={handleChange} placeholder="Search for Movies or TV Shows"/>
+                <input type="submit" className="search-btn" />
             </form>
         </div>
     );
