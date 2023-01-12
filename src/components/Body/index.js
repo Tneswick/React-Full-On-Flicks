@@ -1,51 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Body({ term }) {
 
-  const [data, setData] = useState([]);
-  // const relevantData = () => {
-  //   if (true) {
-  //     return (
-  //       <h2 className="spash-message">
-  //         ^ ^ Use The Search Bar Above To Search ^ ^
-  //       </h2>
-  //     )
-  //   }
-  //   return (
-  //     <h2 className="">
-  //       Sample Data
-  //     </h2>
-  //   )
-  // }
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get(`https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${term}`);
+      setData(response.data);
+    }
+    fetchData();
+    console.log(data)
+  }, []);
+
+  if (!data) {
+    return <p>Loading...</p>;
+  }
   
-  const Data = (url) => {
-    useEffect(() => {
-      // inject search term and get our api data
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setData(data);
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
-    })
-  }
-
-  // take the search term, fetch the imdb data, store it into a variable, utilize the imdb id for 2nd api
-  if (term) {
-    const url = 'https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/' + term;
-    Data(url)
-  }
-
-
   return (
     <div className="body-wrapper">
-      <h1 className='tested'>{data.results.title}</h1>
-      <p>
-        {data.results.description}
-      </p>
+      <h1>{data ? data.results.title : 'Searching'}</h1>
+      <p>{data ? data.results.description : 'Please standby'}</p>
     </div>
   )
 }

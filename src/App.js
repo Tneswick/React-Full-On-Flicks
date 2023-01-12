@@ -6,7 +6,7 @@ import Body from './components/Body';
 function App() {
 
   const [inputText, setInputText] = useState('');
-  const [searchTerm, setSearchTerm] = useState('inception');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
     setInputText(event.target.value);
@@ -17,17 +17,6 @@ function App() {
     setSearchTerm(inputText)
     setInputText('')
   };
-
-  // conditional render
-  const handleBody = () => {
-    if (searchTerm === '') {
-      return
-    }
-
-    return (
-      <Body term={searchTerm} />
-    )
-  }
 
   return (
     <div className="App">
@@ -40,7 +29,7 @@ function App() {
           <button type="submit" className="search-btn">Submit</button>
         </form>
       </div>
-      {handleBody()}
+      <Body term={searchTerm} />
     </div>
   );
 }
