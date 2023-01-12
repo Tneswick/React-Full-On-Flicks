@@ -6,10 +6,10 @@ import Body from './components/Body';
 function App() {
 
   const [inputText, setInputText] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('inception');
 
   const handleChange = (event) => {
-    setInputText({ ...inputText, [event.target.name]: event.target.value });
+    setInputText(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -29,25 +29,18 @@ function App() {
     )
   }
 
-  const Header = () => {
-    return (
-      <div className="header-wrapper">
+  return (
+    <div className="App">
+      <div className="header-wrapper centered">
         <h1 className="header-text">
           🎞️🍿Full On Flicks🎬🎥
         </h1>
         <form onSubmit={handleSubmit}>
           <input type="text" className="search" value={inputText} onChange={handleChange} placeholder="Search for Movies or TV Shows" />
-          <input type="submit" className="search-btn" />
+          <button type="submit" className="search-btn">Submit</button>
         </form>
       </div>
-    );
-  }
-
-  return (
-    <div className="App">
-      {/* <Header /> */}
-      {Header}
-      {handleBody}
+      {handleBody()}
     </div>
   );
 }
