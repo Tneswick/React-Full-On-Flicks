@@ -19,6 +19,15 @@ function App() {
   };
 
   // conditional render
+  const handleBody = () => {
+    if (searchTerm === '') {
+      return
+    }
+
+    return (
+      <Body term={searchTerm} />
+    )
+  }
 
   const Header = () => {
     return (
@@ -37,6 +46,7 @@ function App() {
   return (
     <div className="App">
       {/* <Header /> */}
+      {Header}
       {handleBody}
     </div>
   );

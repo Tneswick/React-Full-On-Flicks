@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function Body () {
+function Body ({ term }) {
 
   // const relevantData = () => {
   //   if (true) {
@@ -19,6 +19,7 @@ function Body () {
 
   const [data, setData] = useState([]);
   useEffect(() => {
+    // inject search term and get our api data
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
