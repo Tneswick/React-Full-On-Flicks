@@ -33,7 +33,7 @@ function App() {
 
   useEffect(() => {
     if (searchTerm) {
-      console.log('starting fetch')
+      console.log('starting fetch with -> ', `https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
       fetch(`https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
         .then(res => {
           res.json()
@@ -47,6 +47,16 @@ function App() {
     }
   }, [searchTerm])
 
+  // experimental conditional body render
+  const handleBody = () => {
+    if (data !== null) {
+      return (
+        <Body data={data} />
+      )
+    }
+    return
+  }
+
   return (
     <div className="App">
       <div className="header-wrapper centered">
@@ -58,7 +68,7 @@ function App() {
           <button type="submit" className="search-btn">Submit</button>
         </form>
       </div>
-      <Body term={data} />
+      {handleBody()}
     </div>
   );
 }

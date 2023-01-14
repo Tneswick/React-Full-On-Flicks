@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 function Body({data}) {
 
   if (!data) {
+    console.log('data value within body component currently is', data)
     return <p>Loading...</p>;
   }
   
