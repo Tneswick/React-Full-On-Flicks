@@ -1,14 +1,13 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import Body from './components/Body';
-// import Header from './components/Header'
+import Body from './components/Body';
 
 function App() {
 
   const [inputText, setInputText] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  // const [data, setData] = useState(null);
+  const [data, setData] = useState(null);
 
   const handleChange = (event) => {
     setInputText(event.target.value);
@@ -17,17 +16,36 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setSearchTerm(inputText)
+    console.log(inputText)
     setInputText('')
   };
+
+  // SAVE UNTIL INFINITE LOOP STOPS
 
   // useEffect(() => {
   //   async function fetchData() {
   //     const response = await axios.get(`https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`);
   //     setData(response.data);
+  //     console.log(data)
   //   }
   //   fetchData();
-  //   console.log(data)
   // },[searchTerm])
+
+  useEffect(() => {
+    if (searchTerm) {
+      console.log('starting fetch')
+      fetch(`https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
+        .then(res => {
+          res.json()
+          console.log('json data')
+        })
+        .then(json => {
+          setData(json)
+          console.log('setting data to this value', json)
+        })
+        .then(console.log('current data value after setData runs -> ',data))
+    }
+  }, [searchTerm])
 
   return (
     <div className="App">
@@ -40,11 +58,7 @@ function App() {
           <button type="submit" className="search-btn">Submit</button>
         </form>
       </div>
-      <Body term={searchTerm} />
-      {/* <div className='body-wrapper'>
-        <h1>{data ? data.results.title : 'Searching'}</h1>
-        <p>{data ? data.results.description : 'Please standby'}</p>
-      </div> */}
+      <Body term={data} />
     </div>
   );
 }
