@@ -12,11 +12,11 @@ function Body({ term }) {
     }
     fetchData();
     console.log(data)
-  }, []);
+  }, [term, data]);
 
-  if (!data) {
-    return <p>Loading...</p>;
-  }
+  // if (!data) {
+  //   return <p>Loading...</p>;
+  // }
   
   return (
     <div className="body-wrapper">
