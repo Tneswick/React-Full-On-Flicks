@@ -35,15 +35,15 @@ function App() {
     if (searchTerm) {
       console.log('starting fetch with -> ', `https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
       fetch(`https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
-        .then(res => {
-          res.json()
+      .then(res => {
           console.log('json data')
+          return res.json()
         })
-        .then(json => {
+      .then(json => {
           setData(json)
           console.log('setting data to this value', json)
         })
-        .then(console.log('current data value after setData runs -> ',data))
+      .then(console.log('current data value after setData runs -> ', data))
     }
   }, [searchTerm])
 
@@ -69,6 +69,9 @@ function App() {
         </form>
       </div>
       {handleBody()}
+      <div className='body-wrapper'>
+
+      </div>
     </div>
   );
 }
