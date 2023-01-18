@@ -7,6 +7,7 @@ function App() {
 
   const [inputText, setInputText] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [titleData, setTitleData] = useState(null);
   const [data, setData] = useState(null);
 
   const handleChange = (event) => {
@@ -20,17 +21,6 @@ function App() {
     setInputText('')
   };
 
-  // SAVE UNTIL INFINITE LOOP STOPS
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await axios.get(`https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`);
-  //     setData(response.data);
-  //     console.log(data)
-  //   }
-  //   fetchData();
-  // },[searchTerm])
-
   useEffect(() => {
     if (searchTerm) {
       console.log('starting fetch with -> ', `https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
@@ -40,12 +30,26 @@ function App() {
           return res.json()
         })
       .then(json => {
-          setData(json)
-          console.log('setting data to this value', json)
+          setTitleData(json.results[0].id);
+          console.log('setting data to this value', json.results[0].id)
         })
-      .then(console.log('current data value after setData runs -> ', data))
     }
   }, [searchTerm])
+
+  useEffect(() => {
+    if (titleData) {
+      console.log('fetch title data with id > ', `https://imdb-api.com/en/API/Title/k_ix11kdvq/${titleData}/FullCast,Posters,Ratings`)
+      fetch(`https://imdb-api.com/en/API/Title/k_ix11kdvq/${titleData}/FullCast,Posters,Ratings`)
+      .then(res => {
+        console.log('json full data')
+        return res.json()
+      })
+      .then(json => {
+        setData(json)
+        console.log('movie data into data variable', json);
+      })
+    }
+  })
 
   // experimental conditional body render
   const handleBody = () => {
@@ -69,9 +73,9 @@ function App() {
         </form>
       </div>
       {handleBody()}
-      <div className='body-wrapper'>
+      {/* <div className='body-wrapper'>
 
-      </div>
+      </div> */}
     </div>
   );
 }
