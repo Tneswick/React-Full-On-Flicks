@@ -49,7 +49,7 @@ function App() {
         console.log('movie data into data variable', json);
       })
     }
-  })
+  }, [titleData])
 
   // experimental conditional body render
   const handleBody = () => {
