@@ -1,9 +1,10 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Body from './components/Body';
 
 function App() {
+
+  const apiWatchmode = "XtDVqWrPdNevd0HMRCFzh8nSvnBpjdpVoazNV42f"
 
   const [inputText, setInputText] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,15 +26,12 @@ function App() {
   // use searchTerm to find title id
   useEffect(() => {
     if (searchTerm) {
-      console.log('starting fetch with -> ', `https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
       fetch(`https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
       .then(res => {
-          console.log('json data')
           return res.json()
         })
       .then(json => {
           setTitleData(json.results[0].id);
-          console.log('setting data to this value', json.results[0].id)
         })
     }
   }, [searchTerm])
@@ -41,20 +39,29 @@ function App() {
   // use title id to populate data array
   useEffect(() => {
     if (titleData) {
-      console.log('fetch title data with id > ', `https://imdb-api.com/en/API/Title/k_ix11kdvq/${titleData}/FullCast,Posters,Ratings`)
       fetch(`https://imdb-api.com/en/API/Title/k_ix11kdvq/${titleData}/FullCast,Posters,Ratings`)
       .then(res => {
-        console.log('json full data')
         return res.json()
       })
       .then(json => {
         setData(json)
-        console.log('movie data into data variable', json);
       })
     }
   }, [titleData])
 
   // use title id to populate watchmode array
+  useEffect(() => {
+    if (data) {
+      fetch(`https://api.watchmode.com/v1/title/${titleData}/sources/?apiKey=${apiWatchmode}`)
+      .then(res => {
+        return res.json()
+      })
+      .then(json => {
+        setWatchmode(json)
+        console.log('incoming watchmode data', watchmode)
+      })
+    }
+  }, [data])
 
   // experimental conditional body render
   const handleBody = () => {
