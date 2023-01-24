@@ -9,6 +9,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [titleData, setTitleData] = useState(null);
   const [data, setData] = useState(null);
+  const [watchmode, setWatchmode] = useState(null);
 
   const handleChange = (event) => {
     setInputText(event.target.value);
@@ -21,6 +22,7 @@ function App() {
     setInputText('')
   };
 
+  // use searchTerm to find title id
   useEffect(() => {
     if (searchTerm) {
       console.log('starting fetch with -> ', `https://imdb-api.com/en/API/SearchTitle/k_ix11kdvq/${searchTerm}`)
@@ -36,6 +38,7 @@ function App() {
     }
   }, [searchTerm])
 
+  // use title id to populate data array
   useEffect(() => {
     if (titleData) {
       console.log('fetch title data with id > ', `https://imdb-api.com/en/API/Title/k_ix11kdvq/${titleData}/FullCast,Posters,Ratings`)
@@ -50,6 +53,8 @@ function App() {
       })
     }
   }, [titleData])
+
+  // use title id to populate watchmode array
 
   // experimental conditional body render
   const handleBody = () => {
