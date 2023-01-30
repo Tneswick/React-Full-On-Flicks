@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function Body({data}) {
+function Body({data, watchmode}) {
 
   const fiveActors = data.actorList.slice(0,5);
 
@@ -32,9 +32,18 @@ function Body({data}) {
         <h3 className='cast-header'>Cast</h3>
         <ul className='cast-list-el'>
           {fiveActors.map(i => (
-            <li key={i}><a target='_blank' rel='noreferrer' href={handleActorLink(i.id)}>{i.name}</a> as {i.asCharacter}</li>
+            <li key={i}>
+              <a href={handleActorLink(i.id)} className='actor-img'>
+                <img alt='Actor portriat' src={i.image}/>
+              </a>
+              <a target='_blank' rel='noreferrer' href={handleActorLink(i.id)}>
+                {i.name}
+              </a> as {i.asCharacter}</li>
           ))}
         </ul>
+      </div>
+      <div>
+        <textarea className='textarea' value={watchmode}></textarea>
       </div>
       {/* Possibly Insert a lower section with 'similar' titles from data.similars */}
     </div>

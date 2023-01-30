@@ -67,7 +67,7 @@ function App() {
   const handleBody = () => {
     if (data !== null) {
       return (
-        <Body data={data} />
+        <Body data={data} watchmode={watchmode} />
       )
     }
     return
