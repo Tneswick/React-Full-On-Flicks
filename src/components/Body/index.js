@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// imdb GET https://imdb-api.com/en/API/Title/k_ix11kdvq/tt0795421
+// watchmode GET https://api.watchmode.com/v1/title/tt0795421/sources/?apiKey=XtDVqWrPdNevd0HMRCFzh8nSvnBpjdpVoazNV42f
+
 function Body({data, watchmode}) {
 
   const fiveActors = data.actorList.slice(0,5);
