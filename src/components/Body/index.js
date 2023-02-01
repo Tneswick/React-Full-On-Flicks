@@ -18,9 +18,10 @@ function Body({data, watchmode}) {
     return `${month}/${day}/${year}`
   }
 
-  const filterWatchmode = (watchmode) => {
+  const filterWatchmode = (/*watchmode*/) => {
     const majorStreams = ['Netflix', 'Hulu', 'Amazon Prime', 'AppleTV+', 'HBO MAX', 'Disney+', 'Paramount+', 'Showtime', 'Crave', 'Peacock', 'Peacock Premium', 'Crave Plus', 'STARZ', 'Crackle', 'Tubi TV', 'Youtube Premium', 'Crunchyroll Premium', 'Plex']
-    const filteredArr = watchmode.filter(o => majorStreams.includes(o.type))
+    const nameFilteredArr = watchmode.filter(o => majorStreams.includes(o.name))
+    const finalFilteredArr = nameFilteredArr.filter(o => o.type === 'sub' || o.type === 'free')
     return watchmode.filter(o => {
       if(o.type === 'sub') {
         return <a href={o.web_url} target='_blank' rel='noreferrer' className='stream-btn' key={o}>{o.name}</a>
