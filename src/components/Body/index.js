@@ -17,6 +17,18 @@ function Body({data, watchmode}) {
     const year = date.slice(0,4);
     return `${month}/${day}/${year}`
   }
+
+  const filterWatchmode = (watchmode) => {
+    const majorStreams = ['Netflix', 'Hulu', 'Amazon Prime', 'AppleTV+', 'HBO MAX', 'Disney+', 'Paramount+', 'Showtime', 'Crave', 'Peacock', 'Peacock Premium', 'Crave Plus', 'STARZ', 'Crackle', 'Tubi TV', 'Youtube Premium', 'Crunchyroll Premium', 'Plex']
+    const filteredArr = watchmode.filter(o => majorStreams.includes(o.type))
+    return watchmode.filter(o => {
+      if(o.type === 'sub') {
+        return <a href={o.web_url} target='_blank' rel='noreferrer' className='stream-btn' key={o}>{o.name}</a>
+      } else {
+        return <div className='no-stream'>This title is not currently available on the major streaming platforms (Netflix, Hulu, Amazon Prime Video, Apple TV+, Disney+, HBO MAX</div>
+      }
+    })
+  }
   
   return (
     <div className="body-wrapper">
@@ -45,7 +57,8 @@ function Body({data, watchmode}) {
           ))}
         </ul>
       </div>
-      <div>
+      <div className='watchmode-wrapper'>
+
         <textarea className='textarea' value={watchmode}></textarea>
       </div>
       {/* Possibly Insert a lower section with 'similar' titles from data.similars */}
